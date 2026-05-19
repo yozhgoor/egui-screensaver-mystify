@@ -4,8 +4,8 @@
 //! egui background layer, recreating the classic Windows 3.x Mystify screen
 //! saver.  The simulation runs at a fixed 30 fps time-step regardless of the
 //! actual display refresh rate so the animation looks identical on any monitor.
-//! Rendering only happens while the window is focused, so no CPU is consumed
-//! when the tab is in the background.
+//! Repaints are capped at 30 FPS; if the hardware cannot sustain that rate
+//! the screensaver animates as fast as possible without any artificial delay.
 //!
 //! # Usage
 //!
@@ -137,12 +137,10 @@ impl MystifyBackground {
     /// Call this once per frame **before** drawing any UI panels or windows so
     /// the animation appears behind all other content.
     ///
-    /// Returns immediately without painting or scheduling a repaint if the
-    /// window does not have focus, saving CPU when the tab is backgrounded.
+    /// Repaints are capped at 30 FPS; if the hardware cannot sustain that rate
+    /// the screensaver animates as fast as possible without any artificial delay.
     pub fn paint(&mut self, ctx: &Context) {
-        if !ctx.input(|input| input.focused) {
-            return;
-        }
+        ctx.request_repaint_after(Duration::from_secs_f64(1.0 / 30.0));
 
         let time = ctx.input(|input| input.time);
 
@@ -217,11 +215,6 @@ impl MystifyBackground {
                 ));
             }
         }
-
-        // Schedule the next repaint precisely when the next simulation step is
-        // due, avoiding unnecessary repaints between steps.
-        let seconds_until_next_frame = (TARGET_FRAME_TIME - self.time_accumulator).max(0.0);
-        ctx.request_repaint_after(Duration::from_secs_f64(seconds_until_next_frame));
     }
 
     /// Advance all vertices of `polygon` by one simulation step of `dt` seconds,
