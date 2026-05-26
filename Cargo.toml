@@ -17,7 +17,7 @@ categories = ["gui", "graphics", "wasm", "visualization"]
 egui = { version = "0.34", default-features = false }
 
 [dev-dependencies]
-xtask-wasm = { version = "0.6.2", features = ["run-example", "wasm-opt"] }
+xtask-wasm = { version = "0.6.5", features = ["run-example", "wasm-opt"] }
 
 [target.'cfg(target_arch = "wasm32")'.dev-dependencies]
 eframe = { version = "0.34", default-features = false, features = ["glow", "default_fonts", "web_screen_reader", "accesskit"] }

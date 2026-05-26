@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Mystify icon">
+  <rect width="512" height="512" rx="96" fill="#05070d"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="18">
+    <path d="M78 120 L214 84 L326 148 L204 210 Z" stroke="#ff5f6d"/>
+    <path d="M118 182 L256 140 L380 222 L238 292 Z" stroke="#ffd166"/>
+    <path d="M90 258 L248 214 L426 300 L254 392 Z" stroke="#06d6a0"/>
+    <path d="M66 328 L228 286 L386 388 L206 456 Z" stroke="#4cc9f0"/>
+  </g>
+</svg>
